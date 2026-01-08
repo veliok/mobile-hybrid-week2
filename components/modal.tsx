@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import { Modal, StyleSheet, Text, Pressable, View } from 'react-native'
 
-const ModalExample = () => {
-	const [modalVisible, setModalVisible] = useState(false);
+const ModalExample: React.FC = () => {
+	const [modalVisible, setModalVisible] = useState<boolean>(false);
+
+  const toggleModal = (): void => {
+    setModalVisible(prev => !prev);
+  };
 
 	return (
 		<View>
@@ -10,19 +14,16 @@ const ModalExample = () => {
 				animationType="fade"
 				transparent={false}
 				visible={modalVisible}
-				onRequestClose={() => {
-					setModalVisible(!modalVisible);
-				}}
+				onRequestClose={toggleModal}
 			>
 				<View style={styles.modalView}>
 					<Text style={styles.modalLabel}>This is modal...</Text>
-					<Pressable onPress={() => setModalVisible(!modalVisible)}>
+					<Pressable onPress={toggleModal}>
 						<Text style={styles.textStyle}>Hide modal by pressing</Text>
 					</Pressable>
 				</View>
 			</Modal>
-			<Pressable
-				onPress={() => setModalVisible(true)}>
+			<Pressable onPress={toggleModal}>
 				<Text style={styles.textStyle}>Show modal message</Text>
 			</Pressable>
 		</View>
